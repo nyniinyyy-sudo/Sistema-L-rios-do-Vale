@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sistema Desbravadores</title>
+<style>
+body {
+    font-family: Arial;
+    padding: 15px;
+    background-color: #0b3d91; /* azul */
+    color: white;
+}
+
+/* Caixas de texto */
+input, textarea, select {
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Botões */
+button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    background-color: white;
+    color: #0b3d91;
+    border: 2px solid red;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Títulos das seções */
+h2 {
+    background: rgba(255,255,255,0.2);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Rodapé */
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+}
+</style>
+<footer>
+    <p>Clube de Desbravadores Lírio do Vale - 2026</p>
+    
+    <!-- Logo Desbravadores -->
+    <img src="D1.png" width="80">
+    
+    <!-- Logo Lírio do Vale (imagem de lírio simbólica) -->
+    <img src="Clube.png" width="80">
+</footer>
+</head>
+<body>
+
+<h1>Sistema Clube de Desbravadores</h1>
+
+<h2>Cadastro de Desbravador</h2>
+<input id="nome" placeholder="Nome">
+<input id="unidade" placeholder="Unidade">
+<input id="classe" placeholder="Classe">
+<input id="especialidade" placeholder="Especialidade">
+<button onclick="salvarCadastro()">Salvar Cadastro</button>
+
+<h2>Mensalidade</h2>
+<input id="mensalNome" placeholder="Nome">
+<input id="valor" placeholder="Valor">
+<button onclick="salvarMensal()">Salvar Mensalidade</button>
+
+<h2>Controle de Caixa</h2>
+<input id="descricao" placeholder="Descrição">
+<input id="valorCaixa" placeholder="Valor">
+<select id="tipo">
+<option>Entrada</option>
+<option>Saída</option>
+</select>
+<button onclick="salvarCaixa()">Salvar Movimento</button>
+
+<h2>Patrimônio</h2>
+<input id="item" placeholder="Nome do item">
+<button onclick="salvarPatrimonio()">Salvar Item</button>
+
+<h2>Ata</h2>
+<textarea id="ata" placeholder="Texto da ata"></textarea>
+<button onclick="salvarAta()">Salvar Ata</button>
+
+<h2>Relatórios</h2>
+<button onclick="mostrarRelatorios()">Mostrar Dados</button>
+<div id="relatorios"></div>
+
+<script>
+function salvarCadastro(){
+let lista = JSON.parse(localStorage.getItem("cadastro")||"[]");
+lista.push({
+nome:document.getElementById("nome").value,
+unidade:document.getElementById("unidade").value,
+classe:document.getElementById("classe").value,
+especialidade:document.getElementById("especialidade").value
+});
+localStorage.setItem("cadastro", JSON.stringify(lista));
+alert("Cadastro salvo");
+}
+
+function salvarMensal(){
+let lista = JSON.parse(localStorage.getItem("mensal")||"[]");
+lista.push({
+nome:document.getElementById("mensalNome").value,
+valor:document.getElementById("valor").value
+});
+localStorage.setItem("mensal", JSON.stringify(lista));
+alert("Mensalidade salva");
+}
+
+function salvarCaixa(){
+let lista = JSON.parse(localStorage.getItem("caixa")||"[]");
+lista.push({
+descricao:document.getElementById("descricao").value,
+valor:document.getElementById("valorCaixa").value,
+tipo:document.getElementById("tipo").value
+});
+localStorage.setItem("caixa", JSON.stringify(lista));
+alert("Movimento salvo");
+}
+
+function salvarPatrimonio(){
+let lista = JSON.parse(localStorage.getItem("patrimonio")||"[]");
+lista.push(document.getElementById("item").value);
+localStorage.setItem("patrimonio", JSON.stringify(lista));
+alert("Item salvo");
+}
+
+function salvarAta(){
+localStorage.setItem("ata", document.getElementById("ata").value);
+alert("Ata salva");
+}
+
+function mostrarRelatorios(){
+document.getElementById("relatorios").innerHTML =
+"<h3>Cadastros:</h3>"+localStorage.getItem("cadastro")+
+"<h3>Mensalidades:</h3>"+localStorage.getItem("mensal")+
+"<h3>Caixa:</h3>"+localStorage.getItem("caixa")+
+"<h3>Patrimônio:</h3>"+localStorage.getItem("patrimonio")+
+"<h3>Ata:</h3>"+localStorage.getItem("ata");
+}
+</script>
+
+</body>
+<footer>
+    <p>Clube de Desbravadores Lírio do Vale - 2026</p>
+    
+    <div class="logos">
+        <img src="D1.png">
+        <img src="Clube.png">
+    </div>
+</footer>
+</html>
